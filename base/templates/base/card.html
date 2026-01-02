@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Period Pal - Select Your Vibe</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base/card.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 class="page-title">Period Pal</h1>
+    <p class="subtitle">How are you feeling today? Swipe to choose.</p>
+    
+    <div class="cards-container">
+        <!-- Direct -->
+        <a href="{% url 'query' %}?tone=Direct&avatar={% static 'base/images/direct.png' %}" class="card">
+            <img src="{% static 'base/images/direct.png' %}" alt="Direct" class="avatar">
+            <div class="emotion-name">Direct</div>
+            <div class="emotion-desc">Straight to the point. No fluff.</div>
+        </a>
+
+        <!-- Supportive -->
+        <a href="{% url 'query' %}?tone=Supportive&avatar={% static 'base/images/supportive.png' %}" class="card">
+            <img src="{% static 'base/images/supportive.png' %}" alt="Supportive" class="avatar">
+            <div class="emotion-name">Supportive</div>
+            <div class="emotion-desc">Kind, encouraging, and helpful.</div>
+        </a>
+
+        <!-- Motivational -->
+        <a href="{% url 'query' %}?tone=Motivational&avatar={% static 'base/images/motivational.png' %}" class="card">
+            <img src="{% static 'base/images/motivational.png' %}" alt="Motivational" class="avatar">
+            <div class="emotion-name">Motivational</div>
+            <div class="emotion-desc">Get inspired and take action!</div>
+        </a>
+
+        <!-- Empathetic -->
+        <a href="{% url 'query' %}?tone=Empathetic&avatar={% static 'base/images/empathetic.png' %}" class="card">
+            <img src="{% static 'base/images/empathetic.png' %}" alt="Empathetic" class="avatar">
+            <div class="emotion-name">Empathetic</div>
+            <div class="emotion-desc">Understanding and caring.</div>
+        </a>
+
+        <!-- Neutral -->
+        <a href="{% url 'query' %}?tone=Neutral&avatar={% static 'base/images/neutral.png' %}" class="card">
+            <img src="{% static 'base/images/neutral.png' %}" alt="Neutral" class="avatar">
+            <div class="emotion-name">Neutral</div>
+            <div class="emotion-desc">Balanced and objective.</div>
+        </a>
+
+    </div>
+
+    <script src="{% static 'base/card.js' %}"></script>
+</body>
+</html>

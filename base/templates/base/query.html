@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG TEST</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'base/query.css' %}">
+    <script src="{% static 'base/query.js' %}"></script>
+
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            {% if avatar %}
+            <img src="{{ avatar }}" alt="Avatar" class="chat-avatar">
+            {% endif %}
+            <div class="chat-title">
+                Period Pal - Chatting with {{ tone|default:"AI" }}
+            </div>
+        </div>
+
+        <div class="chat-area" id="chatArea">
+            {% for message in chat_history %}
+                {% if message.role == 'user' %}
+                    <div class="message user">
+                        {{ message.content }}
+                    </div>
+                {% else %}
+                    <div class="message ai" {% if message.error %}style="color: red;"{% endif %}>
+                        {% if avatar %}
+                        <img src="{{ avatar }}" class="ai-avatar-small">
+                        {% endif %}
+                        <div class="message-content">
+                            {{ message.content }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="input-area">
+            <form method="post" class="chat-form">
+                {% csrf_token %}
+                <input type="hidden" name="avatar" value="{{ avatar }}">
+                <input type="hidden" name="tone" value="{{ tone }}">
+                
+                <input type="text" id="question" name="question" class="chat-input" placeholder="Type your message..." required autocomplete="off">
+                <button type="submit" class="send-btn">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Auto-scroll to bottom of chat
+        const chatArea = document.getElementById('chatArea');
+        chatArea.scrollTop = chatArea.scrollHeight;
+    </script>
+</body>
+</html>

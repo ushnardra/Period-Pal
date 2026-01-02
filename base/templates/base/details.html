@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Period Pal</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base/details.css' %}">
+    <link rel="stylesheet" href="{% static 'base/auth.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="text-section">
+                <h1>Welcome to <span class="brand">Period Pal</span></h1>
+                <p class="subtitle">Your personal emotional support companion.</p>
+            </div>
+
+            <div class="auth-container">
+                <div class="toggle-container">
+                    <button id="login-toggle" class="toggle-btn {% if not show_signup %}active{% endif %}" onclick="showLogin()">Log In</button>
+                    <button id="signup-toggle" class="toggle-btn {% if show_signup %}active{% endif %}" onclick="showSignup()">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form {% if not show_signup %}active{% endif %}" method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {% if login_form.errors %}
+                        <div class="error-message">
+                            {{ login_form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    <div class="input-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" name="username" required placeholder="Enter your username">
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="submit-btn">Log In</button>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signup-form" class="auth-form {% if show_signup %}active{% endif %}" method="POST" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    {% if signup_form.errors %}
+                        <div class="error-message">
+                            {{ signup_form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    <div class="input-group">
+                        <label for="signup-username">Username</label>
+                        <input type="text" id="signup-username" name="username" required placeholder="Choose a username">
+                        {% if signup_form.username.errors %}
+                            <span class="field-error">{{ signup_form.username.errors }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="input-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" name="email" required placeholder="Enter your email">
+                        {% if signup_form.email.errors %}
+                            <span class="field-error">{{ signup_form.email.errors }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="input-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" name="password1" required placeholder="Create a password"> <!-- Note: UserCreationForm uses password1/password 2 -->
+                         {% if signup_form.password1.errors %}
+                            <span class="field-error">{{ signup_form.password1.errors }}</span>
+                        {% endif %}
+                    </div>
+                     <div class="input-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" name="password2" required placeholder="Confirm your password">
+                    </div>
+                    <button type="submit" class="submit-btn">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById('login-form').classList.add('active');
+            document.getElementById('signup-form').classList.remove('active');
+            document.getElementById('login-toggle').classList.add('active');
+            document.getElementById('signup-toggle').classList.remove('active');
+        }
+
+        function showSignup() {
+            document.getElementById('signup-form').classList.add('active');
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('signup-toggle').classList.add('active');
+            document.getElementById('login-toggle').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

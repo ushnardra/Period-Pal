@@ -1,0 +1,5 @@
+django
+langchain-chroma
+langchain-huggingface
+google-generativeai
+python-dotenv
